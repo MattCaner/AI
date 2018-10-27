@@ -1,0 +1,2 @@
+# AI
+Simple AI exercises
