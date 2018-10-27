@@ -9,6 +9,7 @@ Praise Omnissiah.
 import numpy as np
 import random as rnd
 from datetime import datetime
+import statistics as stat
 import math
 
 rnd.seed(datetime.now())
@@ -119,29 +120,50 @@ for x in Pop1.popTable:
     print(x.toNum())
 """
 
-GeneralPop = Popul(100,22)
 
-rememberbest = 0
-rememberbesti = 0
+
+actualX = 1.8505493
+actualY = 2.0502738
 
 print ("HERE IT ALL STARTS")
 
-for iterator in range(iterations):
+repets = 100
+ResultTab = []
+FindTab = []
+
+for i in range(repets):
     
-    SurvivorTable = RuletteSel(GeneralPop,Validator)
-    GeneralPop.upgradeToSurvivors(SurvivorTable)
-    GeneralPop = PerformCrossBreedingOneP(GeneralPop,breedingcoeff)
-    GeneralPop.randomlyMutate(mutationcoeff)
+    GeneralPop = Popul(20,22)
+    rememberbest = 0
+    rememberbesti = 0
+    iterbest = 0
     
-    for i in GeneralPop.popTable:
-        evaluated = Validator(i.toNum())
-        if evaluated > rememberbest:
-            print (i.toNum())
-            print (i.geneTab)
-            rememberbest = evaluated
-            rememberbesti = i.toNum()
-    
-    print("Iteration no: ",iterator," Opt: x=",rememberbesti," y=",rememberbest)
+    for iterator in range(iterations):
         
+        SurvivorTable = RuletteSel(GeneralPop,Validator)
+        GeneralPop.upgradeToSurvivors(SurvivorTable)
+        GeneralPop = PerformCrossBreedingOneP(GeneralPop,breedingcoeff)
+        GeneralPop.randomlyMutate(mutationcoeff)
+        
+        for i in GeneralPop.popTable:
+            evaluated = Validator(i.toNum())
+            if evaluated > rememberbest:
+                #print (i.toNum())
+                #print (i.geneTab)
+                rememberbest = evaluated
+                rememberbesti = i.toNum()
+                iterbest = iterator
+        #print("Iteration no: ",iterator," Opt: x=",rememberbesti," y=",rememberbest)
+    print("Best value was found in  iteration ",iterbest," for x=",rememberbesti," where y=",rememberbest)
+    ResultTab.append(rememberbesti)
+    FindTab.append(iterbest)
+
+sum = 0
+for i in ResultTab:
+    i = round(i,7)
+    sum += (i-actualX)**2
     
-    
+mse = sum/repets
+print("Mean= ",round(stat.mean(ResultTab),7)," St. dev.= ",round(stat.stdev(ResultTab),7)," MSE=",mse)
+print("Found averagely in ",stat.mean(FindTab)," iteration")
+
