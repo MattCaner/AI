@@ -27,7 +27,7 @@ class Chrm:
     def toNum(self):
         n = 0
         for i in range(self.size):
-            n+=self.geneTab[self.size-i-1]*2**(i-4)
+            n+=self.geneTab[self.size-i-1]*2**i
         n = n/(4194304/3)
         n = n-1
         return n
@@ -122,6 +122,7 @@ for x in Pop1.popTable:
 GeneralPop = Popul(100,22)
 
 rememberbest = 0
+rememberbesti = 0
 
 print ("HERE IT ALL STARTS")
 
@@ -138,8 +139,9 @@ for iterator in range(iterations):
             print (i.toNum())
             print (i.geneTab)
             rememberbest = evaluated
+            rememberbesti = i.toNum()
     
-    print("Iteration no:  ",iterator," Opt:  ",rememberbest)
+    print("Iteration no: ",iterator," Opt: x=",rememberbesti," y=",rememberbest)
         
     
     
