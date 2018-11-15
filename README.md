@@ -1,2 +1,2 @@
 # AI
-This repository contains simple programs that operate on fuzzy logic, genetic algorithms and deep learing.
+This repository contains simple programs that operate on fuzzy logic and genetic algorithms.
